@@ -18,6 +18,19 @@ jobs:
       with:
         java-version: 11
         distribution: 'adopt'
+        
+    - name: Setup Python
+      uses: actions/setup-python@v2.2.2
+      with:
+        # Version range or exact version of a Python version to use, using SemVer's version range syntax.
+        python-version: 3.8
+        # The target architecture (x86, x64) of the Python interpreter.
+        architecture: x64
+        # Used to pull python distributions from actions/python-versions. Since there's a default, this is typically not supplied by the user.
+        token: ${{ github.token }}
+        
+    - name: test python
+      run: python --version
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
