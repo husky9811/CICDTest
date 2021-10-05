@@ -3,6 +3,14 @@ name: issue template 1
 about: my description of test issue template
 ---
 
-## ISSUE TEMPLATE
+**手机型号:**
 
-my content
+**系统版本:**
+
+**重现步骤:**
+1.
+2.
+3.
+**预期结果:**
+
+**实际结果:**
