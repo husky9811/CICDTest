@@ -35,14 +35,14 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug
-
     - name: Bump version
       uses: chkfung/android-version-actions@v1.1
       with:
         gradlePath: app/build.gradle
         versionCode: 5 + ${{github.run_number}}
+      
+    - name: Build with Gradle
+      run: ./gradlew assembleDebug
       
     - name: upload APK
       id: uploadArtifact
