@@ -30,6 +30,10 @@ jobs:
       with:
         gradlePath: app/build.gradle
         versionCode: 5 + ${{github.run_number}}
+        
+    - name: update version file
+      run: |
+        sed -i '13s/[0-9]/6/g' app/build.gradle
       
     - name: Build with Gradle
       run: ./gradlew assembleDebug
