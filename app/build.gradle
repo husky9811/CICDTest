@@ -10,7 +10,7 @@ android {
         applicationId "com.example.cicdtest"
         minSdk 21
         targetSdk 30
-        versionCode 6 + 66
+        versionCode 5 + 27
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
