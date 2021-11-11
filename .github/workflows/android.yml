@@ -34,8 +34,6 @@ jobs:
     - name: update version file
       run: |
         sed -i '13s/[0-9]/6/g' app/build.gradle
-        git add .
-        git commit -m "test"
       
     - name: Build with Gradle
       run: ./gradlew assembleDebug
