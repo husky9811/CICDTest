@@ -73,8 +73,7 @@ jobs:
         automatic_release_tag: "${{ env.VERSION_NAME }}_${{ env.VERSION_CODE }}"
         prerelease: false
         title: "push ${{ env.VERSION_NAME }}_${{ env.VERSION_CODE }}"
-        files: |
-          'app/build/outputs/apk/debug/*.apk'
+        files: 'app/build/outputs/apk/debug/*.apk'
    
     - name: Cleanup Gradle Cache
     # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
