@@ -57,8 +57,7 @@ jobs:
         
     - name: get versionName
       run: |
-        versionNameLine=$(sed -n '14p' app/build.gradle)
-        versionName=$(echo versionNameLine | sed 's/[^0-9|.]//g)
+        versionName = $(echo $(sed -n '66p' app/build.gradle) | sed 's/[^0-9|.]//g')
         echo versionName
 
     - name: push tag
