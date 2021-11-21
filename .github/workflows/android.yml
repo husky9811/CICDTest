@@ -61,10 +61,10 @@ jobs:
         message: update version
         github_token: ${{ github.token }}
         
-    - name: get versionName/versionCode and set env
+    # 暂时用sed指定行数的方式获取
+    - name: get versionName and set env
       run: |
         echo "versionName=$(echo $(sed -n '14p' app/build.gradle) | sed 's/[^0-9|.]//g')" >> $GITHUB_ENV
-        echo "versionCode=$(echo $(sed -n '13p' app/build.gradle) | sed 's/[^0-9|+]//g')" >> $GITHUB_ENV
 
     - name: push tag
       uses: marvinpinto/action-automatic-releases@latest
