@@ -24,6 +24,7 @@ jobs:
       run: chmod +x gradlew
       
     - name: Bump version
+      id: setVersionCode
       uses: chkfung/android-version-actions@v1.1
       with:
         gradlePath: app/build.gradle
@@ -59,13 +60,13 @@ jobs:
       run: |
         echo "versionName=$(echo $(sed -n '14p' app/build.gradle) | sed 's/[^0-9|.]//g')" >> $GITHUB_ENV
     - name: Test set env success
-      run: echo ${{ env.versionName }}
+      run: echo ${{ setVersionCode.versionCode }}
 
     - name: push tag
       uses: marvinpinto/action-automatic-releases@latest
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        automatic_release_tag: ${{ env.versionName }}
+        automatic_release_tag: "${{ env.versionName }}_${{ setVersionCode.versionCode }}"
    
     - name: Cleanup Gradle Cache
     # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
