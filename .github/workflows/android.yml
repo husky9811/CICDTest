@@ -39,8 +39,8 @@ jobs:
 #       run: |
 #         sed -i '13s/[0-9]/6/g' app/build.gradle
 
-#     - name: Build with Gradle
-#       run: ./gradlew assembleDebug
+    - name: Build with Gradle
+      run: ./gradlew assembleDebug
       
 #     - name: upload APK
 #       id: uploadArtifact
