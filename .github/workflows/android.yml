@@ -55,10 +55,11 @@ jobs:
         message: update version
         github_token: ${{ github.token }}
         
-    - name: get versionName
+    - name: get versionName and set env
       run: |
-        versionName = $(echo $(sed -n '14p' app/build.gradle) | sed 's/[^0-9|.]//g')
-        echo versionName
+        echo "versionName=$(echo $(sed -n '14p' app/build.gradle) | sed 's/[^0-9|.]//g')" >> $GITHUB_ENV
+    - name: Test set env success
+      run: echo ${{ env.versionName }}
 
     - name: push tag
       uses: "marvinpinto/action-automatic-releases@latest"
