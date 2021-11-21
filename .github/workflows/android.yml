@@ -66,11 +66,15 @@ jobs:
       run: |
         echo "VERSION_NAME=$(echo $(sed -n '14p' app/build.gradle) | sed 's/[^0-9|.]//g')" >> $GITHUB_ENV
 
-    - name: push tag
+    - name: push tag and upload apk
       uses: marvinpinto/action-automatic-releases@latest
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         automatic_release_tag: "${{ env.VERSION_NAME }}_${{ env.VERSION_CODE }}"
+        prerelease: false
+        title: "push ${{ env.VERSION_NAME }}_${{ env.VERSION_CODE }}"
+        files: |
+          'app/build/outputs/apk/debug/*.apk'
    
     - name: Cleanup Gradle Cache
     # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
