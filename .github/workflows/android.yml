@@ -60,13 +60,13 @@ jobs:
       run: |
         echo "versionName=$(echo $(sed -n '14p' app/build.gradle) | sed 's/[^0-9|.]//g')" >> $GITHUB_ENV
     - name: Test set env success
-      run: echo ${{ export.setVersionCode.versionCode }}
+      run: echo ${{ steps.setVersionCode.outputs.versionCode }}
 
     - name: push tag
       uses: marvinpinto/action-automatic-releases@latest
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        automatic_release_tag: "${{ env.versionName }}_${{ export.setVersionCode.versionCode }}"
+        automatic_release_tag: "${{ env.versionName }}_${{ steps.setVersionCode.outputs.versionCode }}"
    
     - name: Cleanup Gradle Cache
     # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
