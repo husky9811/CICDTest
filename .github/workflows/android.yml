@@ -46,8 +46,8 @@ jobs:
         path: 'app/build/outputs/apk/debug/*.apk'
        
     - name: Add & Commit
-  # You may pin to the exact commit or the version.
-  # uses: EndBug/add-and-commit@d77762158d703e60c60cf5baa4de52697d1414a3
+    # You may pin to the exact commit or the version.
+    # uses: EndBug/add-and-commit@d77762158d703e60c60cf5baa4de52697d1414a3
       uses: EndBug/add-and-commit@v7.4.0
       with:
         add: .
