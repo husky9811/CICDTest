@@ -24,9 +24,9 @@ jobs:
       run: chmod +x gradlew
       
     - name: Calcuate version code and set env
-      env: 
-        NUM: ${{ github.run_number }}
-        run: |
+      env:
+          NUM: ${{ github.run_number }}
+      run: |
           echo "versionCode=$(($NUM+5))" >> $GITHUB_ENV
 
     - name: Bump version
