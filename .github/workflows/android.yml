@@ -33,15 +33,15 @@ jobs:
 #       run: |
 #         sed -i '13s/[0-9]/6/g' app/build.gradle
 
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug
+#     - name: Build with Gradle
+#       run: ./gradlew assembleDebug
       
-    - name: upload APK
-      id: uploadArtifact
-      uses: actions/upload-artifact@v2.2.4
-      with:
-        name: app
-        path: 'app/build/outputs/apk/debug/*.apk'
+#     - name: upload APK
+#       id: uploadArtifact
+#       uses: actions/upload-artifact@v2.2.4
+#       with:
+#         name: app
+#         path: 'app/build/outputs/apk/debug/*.apk'
        
     - name: Add & Commit
     # You may pin to the exact commit or the version.
@@ -64,7 +64,7 @@ jobs:
       uses: marvinpinto/action-automatic-releases@latest
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        automatic_release_tag: "${{ env.versionName }}_$${{ env.versionCode }}"
+        automatic_release_tag: "${{ env.versionName }}_${{ env.versionCode }}"
    
     - name: Cleanup Gradle Cache
     # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
