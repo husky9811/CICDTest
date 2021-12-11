@@ -35,8 +35,8 @@ jobs:
         gradlePath: app/build.gradle
         versionCode: ${{ env.VERSION_CODE }}
 
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug
+    # - name: Build with Gradle
+    #   run: ./gradlew assembleDebug
        
     - name: Add & Commit
     # You may pin to the exact commit or the version.
@@ -49,20 +49,30 @@ jobs:
         branch: master
         message: update version
         github_token: ${{ github.token }}
+    
+    - name: Get Android version
+      id: test
+      uses: ltDino/android-get-version-action@v0.1
+      with:
+        gradlePath: app/build.gradle # or app/build.gradle.kts 
+    - name: Get the output
+      run: |
+        echo "The versionCode was ${{ steps.test.outputs.versionCode }}"
+        echo "The versionName was ${{ steps.test.outputs.versionName }}"
         
     # 暂时用sed指定行数的方式获取
     - name: get versionName and set env
       run: |
         echo "VERSION_NAME=$(echo $(sed -n '14p' app/build.gradle) | sed 's/[^0-9|.]//g')" >> $GITHUB_ENV
 
-    - name: push tag and upload apk to Releases
-      uses: marvinpinto/action-automatic-releases@latest
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        automatic_release_tag: "v${{ env.VERSION_NAME }}_${{ env.VERSION_CODE }}"
-        prerelease: false
-        title: "v${{ env.VERSION_NAME }}_${{ env.VERSION_CODE }}"
-        files: 'app/build/outputs/apk/debug/*.apk'
+    # - name: push tag and upload apk to Releases
+    #   uses: marvinpinto/action-automatic-releases@latest
+    #   with:
+    #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+    #     automatic_release_tag: "v${{ env.VERSION_NAME }}_${{ env.VERSION_CODE }}"
+    #     prerelease: false
+    #     title: "v${{ env.VERSION_NAME }}_${{ env.VERSION_CODE }}"
+    #     files: 'app/build/outputs/apk/debug/*.apk'
    
     - name: Cleanup Gradle Cache
     # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
