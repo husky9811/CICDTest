@@ -52,7 +52,7 @@ jobs:
     
     - name: Get Android version
       id: test
-      uses: ltDino/android-get-version-action@v0.2
+      uses: ltDino/android-get-version-action@v0.3
       with:
         gradlePath: app/build.gradle # or app/build.gradle.kts 
     - name: Get the output
