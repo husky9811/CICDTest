@@ -31,7 +31,7 @@ jobs:
           reviewers: ltdino
           milestone: 1
           draft: false
-          branch: master
+          branch: test_create_pull_request
           delete-branch: false
 
       - name: Check output
