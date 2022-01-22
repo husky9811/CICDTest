@@ -44,8 +44,8 @@ jobs:
       uses: EndBug/add-and-commit@v7.4.0
       with:
         add: .
-        author_name: dino
-        author_email: husky1124@163.com
+        author_name: GitHub
+        author_email: noreply@github.com
         branch: master
         message: update version
         github_token: ${{ github.token }}
