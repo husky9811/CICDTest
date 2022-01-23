@@ -34,6 +34,7 @@ jobs:
           assignees: ltdino
           reviewers: ltdino
           milestone: 1
+          base: master
           draft: false
           delete-branch: false
 
