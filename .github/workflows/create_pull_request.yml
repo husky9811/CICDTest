@@ -11,11 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+
     - name: pull-request
+      id: pr
       uses: repo-sync/pull-request@v2
       with:
         destination_branch: "master"                      # If blank, default: master
-        pr_title: "Pulling ${{ github.ref }} into ${{ steps.pull-request.destination_branch }}" # Title of pull request
+        pr_title: "Pulling ${{ steps.extract_branch.outputs.branch }} into ${{ steps.pr.destination_branch }}" # Title of pull request
         pr_allow_empty: true                              # Creates pull request even if there are no changes
         github_token: ${{ secrets.GITHUB_TOKEN }}
         # pr_body: ":crown: *An automated PR*"              # Full markdown support, requires pr_title to be set
