@@ -1,14 +1,25 @@
 name: Submit Pull Request
-
 on:
-  create:
+  push:
+    branches:
+    - "feature*"  # Support wildcard matching
+    - "bugfix*"
+  # create:
 
 jobs:
-  SubmitPullRequest:
+  pull-request:
     runs-on: ubuntu-latest
     steps:
-      - name: Submit Pull Request
-        uses: shimewtr/submit_pull_request@master
-        env:
-          GITHUB_ACCESS_TOKEN: ${{secrets.github_token}}
-          LABEL: WIP
+    - uses: actions/checkout@v2
+    - name: pull-request
+      uses: repo-sync/pull-request@v2
+      with:
+        destination_branch: "master"                      # If blank, default: master
+        pr_title: "Pulling ${{ github.ref }} into ${{ steps.pull-request.destination_branch }}" # Title of pull request
+        pr_body: ":crown: *An automated PR*"              # Full markdown support, requires pr_title to be set
+        pr_reviewer: "ltdino"                         # Comma-separated list (no spaces)
+        pr_assignee: "ltdino"                         # Comma-separated list (no spaces)
+        pr_label: "auto-pr"                               # Comma-separated list (no spaces)
+        pr_draft: true                                    # Creates pull request as draft
+        pr_allow_empty: true                              # Creates pull request even if there are no changes
+        github_token: ${{ secrets.GITHUB_TOKEN }}
