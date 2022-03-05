@@ -18,7 +18,7 @@ jobs:
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
 
-    - if: ${{ steps.extract_branch.outputs.branch }} != "develop"
+    - if: false == (${{ steps.extract_branch.outputs.branch }} == "develop")
       name: pull-request
       id: pr_master
       uses: repo-sync/pull-request@v2
@@ -37,3 +37,4 @@ jobs:
         pr_title: "Pulling ${{ steps.extract_branch.outputs.branch }} into master" # Title of pull request
         pr_allow_empty: true                              # Creates pull request even if there are no changes
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_label: "master"
