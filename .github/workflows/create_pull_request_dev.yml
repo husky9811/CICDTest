@@ -1,10 +1,9 @@
-name: Submit Pull Request
+name: Submit Pull Request to develop
 on:
   push:
     branches:
     - "feature*"  # Support wildcard matching
     - "bugfix*"
-    - "develop"
   # create:
 
 jobs:
@@ -18,23 +17,11 @@ jobs:
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
 
-    - if: false == (${{ steps.extract_branch.outputs.branch }} == "develop")
-      name: pull-request
-      id: pr_master
+    - name: pull-request
+      id: pr
       uses: repo-sync/pull-request@v2
       with:
         destination_branch: "develop"                      # If blank, default: master
         pr_title: "Pulling ${{ steps.extract_branch.outputs.branch }} into develop" # Title of pull request
         pr_allow_empty: true                              # Creates pull request even if there are no changes
         github_token: ${{ secrets.GITHUB_TOKEN }}
-
-    - if: ${{ steps.extract_branch.outputs.branch }} == "develop"
-      name: pull-request
-      id: pr_develop
-      uses: repo-sync/pull-request@v2
-      with:
-        destination_branch: "master"                      # If blank, default: master
-        pr_title: "Pulling ${{ steps.extract_branch.outputs.branch }} into master" # Title of pull request
-        pr_allow_empty: true                              # Creates pull request even if there are no changes
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        pr_label: "master"
