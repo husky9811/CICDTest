@@ -80,7 +80,7 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         automatic_release_tag: "v${{ steps.version_name.outputs.value }}_${{ steps.version_code.outputs.value }}"
         prerelease: false
-        title: "v${{ steps.getVersion.outputs.versionName }}_${{ steps.getVersion.outputs.versionCode }}"
+        title: "v${{ steps.version_name.outputs.value }}_${{ steps.version_code.outputs.value }}"
         files: 'app/build/outputs/apk/debug/*'
    
     - name: Cleanup Gradle Cache
