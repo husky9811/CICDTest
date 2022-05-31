@@ -69,7 +69,9 @@ jobs:
         property: 'VERSION_NAME'
 
     - name: Do something with your bumped release version
-      run: echo ${{ steps.version_name.outputs.value }}
+      run: |
+        echo ${{ steps.version_name.outputs.value }}
+        echo ${{ steps.version_code.outputs.value }}
       # will print "the value of 'the.key.of.the.property'"
 
     - name: push tag and upload apk to Releases
@@ -79,7 +81,7 @@ jobs:
         automatic_release_tag: "v${{ steps.version_name.outputs.value }}_${{ steps.version_code.outputs.value }}"
         prerelease: false
         title: "v${{ steps.getVersion.outputs.versionName }}_${{ steps.getVersion.outputs.versionCode }}"
-        files: 'app/build/outputs/apk/debug/*.apk'
+        files: 'app/build/outputs/apk/debug/*'
    
     - name: Cleanup Gradle Cache
     # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
