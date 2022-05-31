@@ -3,6 +3,11 @@ plugins {
     id 'kotlin-android'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('app.properties').newDataInputStream())
+def code = properties.getProperty("VERSION_CODE").toInteger()
+def name = properties.getProperty("VERSION_NAME")
+
 android {
     compileSdk 30
 
@@ -10,8 +15,8 @@ android {
         applicationId "com.example.cicdtest"
         minSdk 21
         targetSdk 30
-        versionCode 103
-        versionName "3.1"
+        versionCode code.toInteger()
+        versionName name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -30,10 +30,11 @@ jobs:
           echo "VERSION_CODE=$(($RUN_NUMBER+5))" >> $GITHUB_ENV
 
     - name: Bump version
-      uses: chkfung/android-version-actions@v1.1
+      uses: christian-draeger/write-properties@1.0.2
       with:
-        gradlePath: app/build.gradle
-        versionCode: ${{ env.VERSION_CODE }}
+        path: './app.properties'
+        property: 'VERSION_CODE'
+        value: ${{ env.VERSION_CODE }}
 
     # - name: Build with Gradle
     #   run: ./gradlew assembleDebug
@@ -49,18 +50,30 @@ jobs:
         branch: master
         message: update version
         github_token: ${{ github.token }}
-    
-    - name: Get Android version
-      id: getVersion
-      uses: ltDino/android-get-version-action@v0.3
+
+    - name: Read version code from app.properties
+      id: version_code
+      uses: christian-draeger/read-properties@1.0.1
       with:
-        gradlePath: app/build.gradle # or app/build.gradle.kts 
+        path: './app.properties'
+        property: 'VERSION_CODE'
+
+    - name: Read version name from app.properties
+      id: version_name
+      uses: christian-draeger/read-properties@1.0.1
+      with:
+        path: './app.properties'
+        property: 'VERSION_NAME'
+
+    - name: Do something with your bumped release version
+      run: echo ${{ steps.version_name.outputs.value }}
+      # will print "the value of 'the.key.of.the.property'"
 
     - name: push tag and upload apk to Releases
       uses: marvinpinto/action-automatic-releases@latest
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        automatic_release_tag: "v${{ steps.getVersion.outputs.versionName }}_${{ steps.getVersion.outputs.versionCode }}"
+        automatic_release_tag: "v${{ steps.version_name.outputs.value }}_${{ steps.version_code.outputs.value }}"
         prerelease: false
         title: "v${{ steps.getVersion.outputs.versionName }}_${{ steps.getVersion.outputs.versionCode }}"
         files: 'app/build/outputs/apk/debug/*.apk'
