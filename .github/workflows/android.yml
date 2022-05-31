@@ -30,7 +30,7 @@ jobs:
           echo "VERSION_CODE=$(($RUN_NUMBER+5))" >> $GITHUB_ENV
 
     - name: Bump version
-      uses: christian-draeger/write-properties@1.0.2
+      uses: christian-draeger/write-properties@1.1.0
       with:
         path: './app.properties'
         property: 'VERSION_CODE'
