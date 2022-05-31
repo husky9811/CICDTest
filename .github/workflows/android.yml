@@ -36,6 +36,9 @@ jobs:
         property: 'VERSION_CODE'
         value: ${{ env.VERSION_CODE }}
 
+    - name: temporary fix write-properties@1.0.1
+      run: rm ./app.propertiesr
+
     # - name: Build with Gradle
     #   run: ./gradlew assembleDebug
        
